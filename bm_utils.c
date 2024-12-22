@@ -136,6 +136,7 @@ yes_no(char *prompt)
         }
 }
 
+        // fgets(reply, sizeof(reply), stdin);
 /*
  * generate a random string with length randomly selected in [min, max]
  * and using the characters in alphanum (currently includes a space
@@ -365,7 +366,7 @@ tbl_open(int tbl, char *mode)
     if (S_ISFIFO(fstats.st_mode))
         {
         retcode =
-            open(fullpath, ((*mode == 'r')?O_RDONLY:O_WRONLY)|O_CREAT);
+            open(fullpath, ((*mode == 'r')?O_RDONLY:O_WRONLY)|O_CREAT, 0666);
         f = fdopen(retcode, mode);
         }
     else
@@ -534,7 +535,7 @@ seed_name(char *res, long sf, int procs, int step)
         pow++;
         sf /= 10;
         }
-    sprintf(res, "%1d%1d%03X%03X", sf, pow, procs, step);
+    sprintf(res, "%1ld%1d%03X%03X", sf, pow, procs, step);
 
     return;
 }

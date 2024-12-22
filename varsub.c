@@ -52,6 +52,13 @@ char *defaults[19][11] =
                 "14","23","45","19","3","36","9", NULL}, /* 16 */
     {"Brand#23",        "MED BOX",               NULL,
         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},  /* 17 */
+
+    {"300", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},  /* 18 */
+    {"Brand#12", "Brand#23", "Brand#34", "1", "10", "20", NULL, NULL, NULL, NULL, NULL}, /* 19 */
+    {"forest", "1994-01-01", "CANADA", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},  /* 20 */
+    {"SAUDI ARABIA", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},  /* 21 */
+    {"13","31","23", "29", "30", "18", "17", NULL, NULL, NULL, NULL},  /* 22 */
+
     {NULL,              NULL,                   NULL,
         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},  /* UF1 */
     {NULL,              NULL,                   NULL,
@@ -66,6 +73,8 @@ varsub(int qnum, int vnum, int flags)
     int i = 0,
         size[10],
         tmp_date;
+    long tmp1, tmp2;
+    long *lptr;
 
     if (vnum == 0)
     {
@@ -74,11 +83,11 @@ varsub(int qnum, int vnum, int flags)
     switch(qnum)
         {
         case 1:
-            sprintf(param[1], "%d", UnifInt((long)60,(long)120,(long)qnum));
+            sprintf(param[1], "%ld", UnifInt((long)60,(long)120,(long)qnum));
             param[2][0] = '\0';
             break;
         case 2:
-            sprintf(param[1], "%d", 
+            sprintf(param[1], "%ld", 
                 UnifInt((long)P_SIZE_MIN, (long)P_SIZE_MAX, qnum));
             pick_str(&p_types_set, qnum, param[3]);
             ptr = param[3] + strlen(param[3]);
@@ -127,8 +136,8 @@ varsub(int qnum, int vnum, int flags)
                 sprintf(param[1],"%ld001", tmp_date);
             else 
                 sprintf(param[1], "19%d-01-01", tmp_date);
-            sprintf(param[2], "0.0%d", UnifInt(2, 9, qnum));
-            sprintf(param[3], "%d", UnifInt((long)24, (long)25, (long)qnum));
+            sprintf(param[2], "0.0%ld", UnifInt(2, 9, qnum));
+            sprintf(param[3], "%ld", UnifInt((long)24, (long)25, (long)qnum));
             param[4][0] = '\0';
             break;
         case 7:
@@ -202,7 +211,7 @@ varsub(int qnum, int vnum, int flags)
             param[2][0] = '\0';
             break;
         case 16:
-            sprintf(param[1], "Brand#%d%d", 
+            sprintf(param[1], "Brand#%ldl%ld", 
                 UnifInt(1, 5, qnum), 
                 UnifInt(1, 5, qnum));
             pick_str(&p_types_set, qnum, param[2]);
@@ -231,8 +240,45 @@ next:
             param[3][0] = '\0';
             break;
         case 18:
+            sprintf(param[1], "%ld", UnifInt((long)312, (long)315, qnum));
+            param[2][0] = '\0';
+            break;
         case 19:
-                break;
+            tmp1 = UnifInt((long)1, (long)5, qnum); 
+            tmp2 = UnifInt((long)1, (long)5, qnum);
+            sprintf(param[1], "Brand#%ld%ld", tmp1, tmp2);
+            tmp1 = UnifInt((long)1, (long)5, qnum); 
+            tmp2 = UnifInt((long)1, (long)5, qnum);
+            sprintf(param[2], "Brand#%ld%ld", tmp1, tmp2);
+            tmp1 = UnifInt((long)1, (long)5, qnum); 
+            tmp2 = UnifInt((long)1, (long)5, qnum);
+            sprintf(param[3], "Brand#%ld%ld", tmp1, tmp2);
+            sprintf(param[4], "%ld", UnifInt((long)1, (long)10, qnum));
+            sprintf(param[5], "%ld", UnifInt((long)10, (long)20, qnum));
+            sprintf(param[6], "%ld", UnifInt((long)20, (long)30, qnum));
+            param[7][0] = '\0';
+            break;
+        case 20:
+            pick_str(&colors, qnum, param[1]);
+            tmp_date = UnifInt((long)93,(long)97,qnum);
+            sprintf(param[2], "19%d-01-01", tmp_date);
+            pick_str(&nations2, qnum, param[3]);
+            param[4][0] = '\0';
+            break;
+        case 21:
+            pick_str(&nations2, qnum, param[1]);
+            param[2][0] = '\0';
+            break;
+        // case 22:
+        //     lptr = &ccode[0];
+        //     permute(lptr,25, qnum);
+        //     for (i=0; i <= 7; i++)
+        //         sprintf(param[i+1], "%ld", 10 + ccode[i]);
+        //     param[8][0] = '\0';
+        //     break;
+        case 22:
+        case 23:
+        break;
         default:
             fprintf(stderr, 
                 "No variable definitions available for query %d\n", 

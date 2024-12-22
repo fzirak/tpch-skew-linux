@@ -7,11 +7,11 @@
 ################
 CC      = gcc
 # Current values for DATABASE are: INFORMIX, DB2, TDAT (Teradata),
-#                                  SQLSERVER, SYBASE, MYSQL
+#                                  SQLSERVER, SYBASE
 # Current values for PLATFORM are: ATT, DOS, HP, IBM, ICL, MVS,
 #                                  SGI, U2200, VMS, WIN32, CENTOS
-DATABASE= MYSQL
-PLATFORM= CENTOS
+DATABASE= POSTGRESQL
+PLATFORM= LINUX
 WORKLOAD = TPCH
 #
 

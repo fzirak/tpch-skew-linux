@@ -1,4 +1,31 @@
-# tpch_skew_linux
+# TPCH-Skew for Linux
+This code is just a modified and debugged clone of the tpch_skew_linux repo which has made TPCH-Skew tool adjusted for unix based systems. 
+
+There are makefiles for multiple operating systems and within those file you can specify your desired database server. I have added PostgreSQL to the database server options. However, it has only been tested for generating data and queries. Other features, such as analyzing queries or update statements, may need further adjustment.
+
+There are extera scripts to create multiple databases and workloads. **Make sure the environmental variables listed in `set_env_var.sh` are set properly before running the following scripts** (you can modify the pathes as you wish).
+### Creating database
+The `create_database.sh` script can be used to (1) call `dbgen` tool to create data files, (2) create database, and (3) load database with the data files. Some of the `dbgen` parameters can be passed to `create_database` sript, for the rest you can change the code and add them manually. An example command to run this script is:
+
+
+    ./create_database.sh -g -s 10 -z 3.0 -ddir ./path_to_data_dir -db tpch_sf10_z3
+
+Running the script without `-g` skips the data generation step mentioned above.
+
+### Generating workloads
+The `generate_workload.py` script can be used for generating query workload using specified query templates that are selected with a uniform distribution. It also allowes you to run the queries and measure their execution time within the python code (**It is not a precise measurment for sensitive analysis and is just an indication on how long each template query takes to complete**). 
+
+
+The original TPCH-Skew tool only contains 17 templates, but this repo contains all templates except template 22. You can exclude some templates but including their ID in a file (eg `e_temp.txt`) and pass it to the `generate_workload.py` script. 
+
+An example command to run this script is:
+
+
+    python generate_workload.py -n 100 -s 10 -x e_temp.txt -o tpch_sf10_z3_wrkld.csv
+
+
+The following is the instructions provided in the cloned repo. You can also find the readme file provided in the original TPCH-skew tool in `README-SKEW.doc` file.
+## tpch_skew_linux
 
 TPC-H with skew factor (Zipf distribution) enabled. Use `dbgen` with `-z` option to input the skew when generating benchmark data. There are several makefile available for different OSs and settings. Try them if the default makefile doesn't work.
 
@@ -75,7 +102,3 @@ To generate updates for a SF=1 (1GB), use:
 	dbgen -v -O s -s 1
 	dbgen -v -U 1 -s 1
 ```
-
-
-
-

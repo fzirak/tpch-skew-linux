@@ -10,7 +10,7 @@
 # the BEGIN. A uniformly random value from [0, sum(weights)]
 # will be chosen and the first token whose cumulative weight is greater than
 # or equal to the result will be returned. In essence, the weights for each
-# token represent its relative weigth within a distribution.
+# token represent its relative weight within a distribution.
 #
 # one special token is defined: count (number of data points in the 
 #  distribution). It MUST be defined for each named distribution.
@@ -29,11 +29,17 @@
 #  regions    must be ordered along with nations
 #  rflag      lineitems.returnflag
 #  types      parts.type
-#  colors     embedded string creation
-#  articles   comment generation (must compile with -DNEW_PTEXT)
-#  nouns      comment generation (must compile with -DNEW_PTEXT)
-#  verbs      comment generation (must compile with -DNEW_PTEXT)
-#  adverbs    comment generation (must compile with -DNEW_PTEXT)
+#  colors     embedded string creation; CANNOT BE USED FOR pick_str(), agg_str() perturbs order
+#  articles   comment generation 
+#  nouns      
+#  verbs      
+#  adverbs    
+#  auxillaries 
+#  prepositions
+#  terminators
+#  grammar    sentence formation
+#  np
+#  vp
 ###
 # category
 ###
@@ -388,6 +394,7 @@ PROMO BRUSHED COPPER|1
 end p_types
 ###
 # colors
+# NOTE: This distribution CANNOT be used by pick_str(), since agg_str() perturbs its order
 ###
 begin colors
 COUNT|92
@@ -441,7 +448,7 @@ linen|1
 magenta|1
 maroon|1
 medium|1
-metalic|1
+metallic|1
 midnight|1
 mint|1
 misty|1
@@ -484,30 +491,31 @@ wheat|1
 white|1
 yellow|1
 end colors
-###
-# articles
-###
-BEGIN articles
-COUNT|2
-The|1
-A|1
-END articles
+################
+################
+## psuedo text distributions
+################
+################
 ###
 # nouns
 ###
 BEGIN nouns
-COUNT|40
-foxes|1
-ideas|1
-theodolites|1
-pinto beans|1
-instructions|1
-dependencies|1
-excuses|1
-associations|1
-asymptotes|1
-courts|1
-dolphins|1
+COUNT|45
+packages|40
+requests|40
+accounts|40
+deposits|40
+foxes|20
+ideas|20
+theodolites|20
+pinto beans|20
+instructions|20
+dependencies|10
+excuses|10
+platelets|10
+asymptotes|10
+courts|5
+dolphins|5
 multipliers|1
 sauternes|1
 warthogs|1
@@ -515,7 +523,7 @@ frets|1
 dinos|1
 attainments|1
 somas|1
-Tiresias'|1
+Tiresias|1
 patterns|1
 forges|1
 braids|1
@@ -537,23 +545,24 @@ realms|1
 pains|1
 grouches|1
 escapades|1
+hockey players|1
 END nouns
 ###
 # verbs
 ###
 BEGIN verbs
 COUNT|40
-sleep|1
-wake|1
-are|1
-cajole|1
-haggle|1
-nag|1
-use|1
-boost|1
-affix|1
-detect|1
-integrate|1
+sleep|20
+wake|20
+are|20
+cajole|20
+haggle|20
+nag|10
+use|10
+boost|10
+affix|5
+detect|5
+integrate|5
 maintain|1
 nod|1
 was|1
@@ -588,13 +597,16 @@ END verbs
 # adverbs
 ##
 BEGIN adverbs
-COUNT|25
-furiously|1
-slyly|1
-carefully|1
-blithely|1
-quickly|1
-fluffily|1
+COUNT|28
+sometimes|1
+always|1
+never|1
+furiously|50
+slyly|50
+carefully|50
+blithely|40
+quickly|30
+fluffily|20
 slowly|1
 quietly|1
 ruthlessly|1
@@ -615,3 +627,191 @@ evenly|1
 boldly|1
 silently|1
 END adverbs
+###
+# articles
+##
+BEGIN articles
+COUNT|3
+the|50
+a|20
+an|5
+END articles
+###
+# prepositions
+##
+BEGIN prepositions
+COUNT|47
+about|50
+above|50
+according to|50
+across|50
+after|50
+against|40
+along|40
+alongside of|30
+among|30
+around|20
+at|10
+atop|1
+before|1
+behind|1
+beneath|1
+beside|1
+besides|1
+between|1
+beyond|1
+by|1
+despite|1
+during|1
+except|1
+for|1
+from|1
+in place of|1
+inside|1
+instead of|1
+into|1
+near|1
+of|1
+on|1
+outside|1
+over|1 
+past|1
+since|1
+through|1
+throughout|1
+to|1
+toward|1
+under|1
+until|1
+up|1 
+upon|1
+whithout|1
+with|1
+within|1
+END prepositions
+###
+# auxillaries
+##
+BEGIN auxillaries
+COUNT|18
+do|1
+may|1
+might|1
+shall|1
+will|1
+would|1
+can|1
+could|1
+should|1
+ought to|1
+must|1
+will have to|1
+shall have to|1
+could have to|1
+should have to|1
+must have to|1
+need to|1
+try to|1
+END auxiallaries
+###
+# terminators
+##
+BEGIN terminators
+COUNT|6
+.|50
+;|1
+:|1
+?|1
+!|1
+--|1
+END terminators
+###
+# adjectives
+##
+BEGIN adjectives
+COUNT|29
+special|20
+pending|20
+unusual|20
+express|20
+furious|1
+sly|1
+careful|1
+blithe|1
+quick|1
+fluffy|1
+slow|1
+quiet|1
+ruthless|1
+thin|1
+close|1
+dogged|1
+daring|1
+brave|1
+stealthy|1
+permanent|1
+enticing|1
+idle|1
+busy|1
+regular|50
+final|40
+ironic|40
+even|30
+bold|20
+silent|10
+END adjectives
+###
+# grammar
+# first level grammar. N=noun phrase, V=verb phrase,
+# P=prepositional phrase, T=setence termination
+##
+BEGIN grammar
+COUNT|5
+N V T|3
+N V P T|3
+N V N T|3
+N P V N T|1
+N P V P T|1
+END grammar
+###
+# NP
+# second level grammar. Noun phrases. N=noun, A=article, 
+# J=adjective, D=adverb
+##
+BEGIN np
+COUNT|4
+N|10
+J N|20
+J, J N|10
+D J N|50
+END np
+###
+# VP
+# second level grammar. Verb phrases. V=verb, X=auxiallary, 
+# D=adverb
+##
+BEGIN vp
+COUNT|4
+V|30
+X V|1
+V D|40
+X V D|1
+END vp
+###
+# Q13
+# Substitution parameters for Q13 
+##
+BEGIN Q13a
+COUNT|4
+special|20
+pending|20
+unusual|20
+express|20
+END Q13a
+BEGIN Q13b
+COUNT|4
+packages|40
+requests|40
+accounts|40
+deposits|40
+END Q13b

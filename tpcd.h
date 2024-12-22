@@ -73,6 +73,15 @@
 #define SET_DBASE       "use %s\ngo\n"
 #endif
 
+#ifdef POSTGRESQL
+#define GEN_QUERY_PLAN  "EXPLAIN (FORMAT TEXT);\n"
+#define START_TRAN      "BEGIN;\n"
+#define END_TRAN        "COMMIT;\n"
+#define SET_OUTPUT      ""
+#define SET_ROWCOUNT    "limit %d;\n"
+#define SET_DBASE       "\\c %s\n"
+#endif
+
 #ifdef 	SYBASE
 #define GEN_QUERY_PLAN  "set showplan on\nset noexec on\ngo\n"
 #define START_TRAN      "begin transaction\ngo\n"

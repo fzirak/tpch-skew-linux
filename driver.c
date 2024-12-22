@@ -490,7 +490,7 @@ partial (int tbl, int s)
 
   if (verbose)
 	{
-	  fprintf (stderr, "Starting to load stage %d of %d of %s...",
+	  fprintf (stderr, "Starting to load stage %d of %ld of %s...",
 			   s + 1, children, tdefs[tbl].comment);
 	}
   if (load_state (scale, children, s))
@@ -561,7 +561,7 @@ pload (int tbl)
 	rowcnt /= children;
   if (verbose)
 	{
-	  fprintf (stderr, "Starting %d children to load %s",
+	  fprintf (stderr, "Starting %ld children to load %s",
 			   children, tdefs[tbl].comment);
 	}
   for (c = 0; c < children; c++)
@@ -857,7 +857,7 @@ for (c = (long) start; c <= children; c++)
 		  {
 			if (verbose)
 				fprintf (stderr,
-					"Generating seeds for %s [step: %d]  ",
+					"Generating seeds for %s [step: %ld]  ",
 					tdefs[i].comment, c);
 
 			step_size = scale / children;
@@ -967,7 +967,7 @@ main (int ac, char **av)
 			{
 			  if (load_state (scale, children, children))
 				{
-				  fprintf (stderr, "Unable to load seeds (%d)\n",
+				  fprintf (stderr, "Unable to load seeds (%ld)\n",
 						   scale);
 				  exit (-1);
 				}

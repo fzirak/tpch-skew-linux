@@ -1,0 +1,2 @@
+15, 22, 18, 3, 10, 9, 12
+#15&22 has to be here. it' a combination of three queries.

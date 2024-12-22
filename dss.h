@@ -188,7 +188,7 @@ void read_dist PROTO((char *path, char *name, distribution * target));
 void embed_str PROTO((distribution *d, int min, int max, 
     int stream, char *dest));
 #ifndef STDLIB_HAS_GETOPT
-int getopt PROTO((int arg_cnt, char **arg_vect, char *oprions));
+// int getopt PROTO((int arg_cnt, char **arg_vect, char *oprions));
 #endif /* STDLIB_HAS_GETOPT */
 int load_state PROTO((long scale, long procs, long step));
 int store_state PROTO((long scale, long procs, long step));
@@ -258,11 +258,11 @@ extern tdef tdefs[];
 #define  P_SIZE       126
 #define  P_NAME_SCL   5
 #define  P_MFG_TAG    "Manufacturer#"
-#define  P_MFG_FMT     "%s%01d"
+#define  P_MFG_FMT     "%s%01ld"
 #define  P_MFG_MIN     1
 #define  P_MFG_MAX     5
 #define  P_BRND_TAG   "Brand#"
-#define  P_BRND_FMT   "%s%02d"
+#define  P_BRND_FMT   "%s%02ld"
 #define  P_BRND_MIN     1
 #define  P_BRND_MAX     5
 #define  P_SIZE_MIN    1
@@ -306,7 +306,7 @@ extern tdef tdefs[];
  */
 #define  C_SIZE       165
 #define  C_NAME_TAG   "Customer#"
-#define  C_NAME_FMT   "%s%09d"
+#define  C_NAME_FMT   "%s%09ld"
 #define  C_MSEG_MAX    5
 #define  C_ABAL_MIN   -99999
 #define  C_ABAL_MAX    999999
@@ -320,7 +320,7 @@ extern tdef tdefs[];
 #define  O_ODATE_MAX     (STARTDATE + TOTDATE - \
                          (L_SDTE_MAX + L_RDTE_MAX) - 1)
 #define  O_CLRK_TAG      "Clerk#"
-#define  O_CLRK_FMT      "%s%09d"
+#define  O_CLRK_FMT      "%s%09ld"
 #define  O_CLRK_SCL      1000
 #define  O_LCNT_MIN      1
 #define  O_LCNT_MAX      7
@@ -477,7 +477,7 @@ extern tdef tdefs[];
    sprintf(tgt, "%02d-%02d-19%02d", mn, dy, yr)
 #else
 #define  PR_DATE(tgt, yr, mn, dy)	\
-   sprintf(tgt, "19%02d-%02d-%02d", yr, mn, dy)
+   sprintf(tgt, "19%02ld-%02ld-%02ld", yr, mn, dy)
 #endif /* DATE_FORMAT */
 #else /* for SET_SEEDS we don't need output macros */
 #define  PR_STR(f,str,len)
