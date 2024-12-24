@@ -1,7 +1,7 @@
 # TPCH-Skew for Linux
 This code is just a modified and debugged clone of the [tpch_skew_linux](https://github.com/YSU-Data-Lab/TPC-H-Skew) repo which has made TPCH-Skew tool adjusted for unix based systems. 
 
-There are makefiles for multiple operating systems and within those file you can specify your desired database server. I have added PostgreSQL to the database server options. However, it has only been tested for generating data and queries. Other features, such as analyzing queries or update statements, may need further adjustment.
+There are makefiles for multiple operating systems and within those file you can specify your desired database server. I have added PostgreSQL to the database server options. However, it has only been tested for generating data and queries on Ubuntu 18.04. Other features, such as analyzing queries or update statements, may need further adjustment.
 
 There are extera scripts to create multiple databases and workloads. **Make sure the environmental variables listed in `set_env_var.sh` are set properly before running the following scripts** (you can modify the pathes as you wish).
 ### Creating database
